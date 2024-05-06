@@ -1,15 +1,9 @@
 import streamlit as st
 from sklearn import datasets
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_curve, roc_auc_score
+import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.inspection import permutation_importance
 
 # Set page configuration and custom CSS for background color
 st.set_page_config(page_title="Breast Cancer Diagnosis Assistant", page_icon="🎗️")
@@ -26,8 +20,8 @@ st.set_page_config(page_title="Breast Cancer Diagnosis Assistant", page_icon="�
 # st.markdown(custom_css, unsafe_allow_html=True)
 
 # Display title and image
-st.title("Breast Cancer Dataset Exploration Predictive Analysis")
-#st.image("data/pink_ribbon.png", width=200)
+st.title("Breast Cancer Dataset Exploration and Classification")
+st.image("data/pink_ribbon.png", width=120)
 
 # Display app description
 st.markdown("""
@@ -39,11 +33,10 @@ This app provides interactive tools for analyzing breast cancer data. Explore th
 # Load breast cancer dataset
 breastCancer = datasets.load_breast_cancer()
 df = pd.DataFrame(breastCancer.data, columns=breastCancer.feature_names)
-X = breastCancer.data
-y = breastCancer.target
+df['target'] = breastCancer.target
 
 # Display horizontal tabs for navigation
-tabs = ["Data Exploration", "Model Training"]
+tabs = ["Data Exploration", "Data Visualization", "Model Training"]
 selected_tab = st.selectbox("Select Tab", tabs)
 
 # Define functions for Data Exploration and Model Training
@@ -55,22 +48,28 @@ def data_exploration():
     st.write("Sample Data:")
     st.write(df.head(7))
 
+def data_visualization():
     # Display correlation heatmap using Seaborn and Matplotlib
     st.write("### Correlation Heatmap")
+    st.write("Correlation is a statistical metric that quantifies the association between two variables, ranging from -1 to 1. A positive correlation signifies a direct relationship, whereas a negative correlation indicates an inverse relationship. ")
+    corr_matrix = df.corr()
+    threshold = st.slider("Select Correlation Threshold", min_value=0.0, max_value=1.0, value=0.75, step=0.01)
+    filtre = np.abs(corr_matrix["target"]) > threshold
+    corr_features = corr_matrix.columns[filtre].tolist()
+
     plt.figure(figsize=(14, 12))
-    sns.heatmap(df.astype(float).corr(), linewidths=0.1, square=True, linecolor='white', annot=True)
+    sns.heatmap(df[corr_features].corr(), linewidths=0.1, square=True, linecolor='white', annot=True)
     heatmap_fig = plt.gcf()  # Get current figure
-    st.pyplot(heatmap_fig)  # Display the figure explicitly
+    st.write(f"### Correlation Heatmap (Threshold: {threshold})")
+    st.pyplot(heatmap_fig)  # Display the heatmap figure
 
-    # Create the countplot using Seaborn and Matplotlib
-    fig = plt.figure()
-    ax = sns.countplot(x='bland_chromatin', hue='class', data=breastCancer)
-    ax.set(xlabel='Bland Chromatin', ylabel='No of cases')
-    plt.title("Bland Chromatin w.r.t. Class", y=0.96)
+    # Generate pairplot for selected features with customized settings
+    st.write("### Pairplot with KDE Diagonals and Target Variable")
+    pairplot_fig = sns.pairplot(df[corr_features], diag_kind="kde", markers="+", hue="target")
+    plt.tight_layout()  # Adjust layout for better visualization
 
-    # Display the plot using Streamlit
-    st.pyplot(fig)
-    
+    # Display the pairplot using st.pyplot()
+    st.pyplot(pairplot_fig.fig)  # Display the pairplot figure
 
 def model_training():
     st.write("## Model Training")
@@ -79,5 +78,7 @@ def model_training():
 # Render content based on selected tab
 if selected_tab == "Data Exploration":
     data_exploration()
+elif selected_tab == "Data Visualization":
+    data_visualization()
 elif selected_tab == "Model Training":
     model_training()
