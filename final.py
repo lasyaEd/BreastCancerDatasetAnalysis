@@ -4,20 +4,25 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 # Set page configuration and custom CSS for background color
 st.set_page_config(page_title="Breast Cancer Diagnosis Assistant", page_icon="🎗️")
-# custom_css = f"""
-#     <style>
-#         body {{
-#             background-color: #FFC0CB; /* Breast cancer pink color code */
-#         }}
-#         .stApp {{
-#             background-color: #FFC0CB; /* Apply to entire app container */
-#         }}
-#     </style>
-# """
-# st.markdown(custom_css, unsafe_allow_html=True)
+custom_css = f"""
+    <style>
+        body {{
+            background-color: #FFC0CB; /* Breast cancer pink color code */
+        }}
+        .stApp {{
+            background-color: #FFC0CB; /* Apply to entire app container */
+        }}
+    </style>
+"""
+st.markdown(custom_css, unsafe_allow_html=True)
 
 # Display title and image
 st.title("Breast Cancer Dataset Exploration and Classification")
@@ -37,7 +42,7 @@ df['target'] = breastCancer.target
 
 # Display horizontal tabs for navigation
 tabs = ["Data Exploration", "Data Visualization", "Model Training"]
-selected_tab = st.selectbox("Select Tab", tabs)
+selected_tab = st.selectbox("Explore options", tabs)
 
 # Define functions for Data Exploration and Model Training
 def data_exploration():
@@ -65,15 +70,79 @@ def data_visualization():
 
     # Generate pairplot for selected features with customized settings
     st.write("### Pairplot with KDE Diagonals and Target Variable")
-    pairplot_fig = sns.pairplot(df[corr_features], diag_kind="kde", markers="+", hue="target")
-    plt.tight_layout()  # Adjust layout for better visualization
+    feature_names = breastCancer.feature_names
+    df['target'] = breastCancer.target
+    # Select pairs of features for pair plot using Streamlit multiselect widget
+    selected_pairs = st.multiselect("Select Feature Pairs", options=feature_names, default=feature_names[:4])
 
-    # Display the pairplot using st.pyplot()
-    st.pyplot(pairplot_fig.fig)  # Display the pairplot figure
+    if len(selected_pairs) > 4:
+        st.warning("Please select a maximum of 4 feature pairs.")
+        selected_pairs = selected_pairs[:4]  # Limit selection to first 8 features
+
+
+    # Filter DataFrame to include selected feature pairs
+    selected_df = df[selected_pairs + ['target']]
+
+    # Pair plot based on selected feature pairs
+    if selected_pairs:
+        st.write(f"Pair Plot for Selected Feature Pairs: {', '.join(selected_pairs)}")
+        pairplot = sns.pairplot(selected_df, hue='target')
+        st.pyplot(pairplot)
+    else:
+        st.write("Please select feature pairs to display the pair plot.")
+
 
 def model_training():
-    st.write("## Model Training")
-    # Placeholder for model training code
+    X = breastCancer.data
+    y = breastCancer.target
+    feature_names = breastCancer.feature_names
+    st.write("## Explore feature selection and predictive modeling.")
+    df = pd.DataFrame(X, columns=feature_names)
+    df['target'] = y
+
+    # Compute correlation matrix
+    corr_matrix = df.corr()
+
+    # Define correlation threshold
+    threshold = 0.75
+
+    # Find highly correlated features
+    corr_pairs = np.where(np.abs(corr_matrix) > threshold)
+    corr_features = [(corr_matrix.index[x], corr_matrix.columns[y]) for x, y in zip(*corr_pairs) if x != y and x < y]
+
+    # Drop highly correlated features
+    uncorrelated_features = set(feature_names) - set(sum(corr_features, ()))
+    filtered_df = df[list(uncorrelated_features) + ['target']]
+
+    # Split data into features (X) and target (y)
+    X = filtered_df.drop('target', axis=1)
+    y = filtered_df['target']
+
+    # Standardize the feature data
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+
+    # Split data into training and test sets
+    X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+    # Fit a logistic regression model
+    model = LogisticRegression()
+    model.fit(X_train, y_train)
+
+    # Make predictions
+    y_pred = model.predict(X_test)
+
+    # Evaluate model performance
+    accuracy = accuracy_score(y_test, y_pred)
+    report = classification_report(y_test, y_pred)
+
+    # Display results in Streamlit app
+    st.title("Model Evaluation with Less Correlated Features")
+    st.write(f"Accuracy: {accuracy:.2f}")
+    st.write("Classification Report:")
+    st.write(report)
+
+
 
 # Render content based on selected tab
 if selected_tab == "Data Exploration":
