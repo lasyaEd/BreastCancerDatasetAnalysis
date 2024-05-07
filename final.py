@@ -36,7 +36,7 @@ st.markdown(
     f"""
     <div style="display: flex; align-items: center;">
         <h1 style="margin-right: 20px;">{title_text}</h1>
-        <img src="{image_path}" width="120">
+        <img src="{image_path}" width="75">
     </div>
     """,
     unsafe_allow_html=True
