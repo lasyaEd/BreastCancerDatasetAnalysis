@@ -11,7 +11,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 
 
 # Set page configuration and custom CSS for background color
-st.set_page_config(page_title="Breast Cancer Diagnosis Assistant", page_icon="🎗️")
+st.set_page_config(page_title="Breast Cancer Dataset Analysis", page_icon="🎗️")
 custom_css = f"""
     <style>
         body {{
@@ -25,7 +25,7 @@ custom_css = f"""
 st.markdown(custom_css, unsafe_allow_html=True)
 
 # Display title and image
-st.title("Breast Cancer Dataset Exploration and Classification")
+st.title("🎗️ Breast Cancer Dataset Exploration and Classification")
 # st.image("data/BreastCancerRibbonEmoji.png", width=120)
 
 # Display app description
