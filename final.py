@@ -74,7 +74,7 @@ def data_exploration():
     # Display sample statistics
     st.write("Number of samples:", df.shape[0])
     st.write("Number of features:", df.shape[1])
-    st.subheader("Classes:")
+    st.write("Classes:")
     st.write(", ".join(breastCancer.target_names))
 
     # Display sample data
