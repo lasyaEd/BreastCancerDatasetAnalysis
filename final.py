@@ -35,7 +35,7 @@ Welcome to the Breast Cancer Dataset Analysis and Classification App! This inter
 <small><em>Please note: This app is for educational purposes only. Do not use this app for self-diagnosis or medical decision-making.</em></small>
 """, unsafe_allow_html=True)
 
-st.write("## How to Use")
+st.write("### How to Use")
 
 # Data Exploration
 st.write("#### Click on data exploration tab to:")
@@ -159,6 +159,14 @@ def classification_model():
     f1 = f1_score(y_test, y_pred)
 
     # Display model evaluation metrics
+    """
+    Display description of model evaluation metrics.
+    """
+    st.write("""
+    ## Model Evaluation Metrics
+    
+    Model evaluation metrics assess the performance of classification models on the breast cancer dataset. Common metrics include accuracy, precision, recall, F1-score, and area under the ROC curve (AUC-ROC). These metrics provide a comprehensive view of a model's effectiveness in distinguishing between benign and malignant tumors, considering both predictive accuracy and class imbalance.
+    """)
     st.header("Model Evaluation Metrics:")
     st.write(f"Accuracy: {accuracy:.4f}")
     st.write(f"Precision: {precision:.4f}")
@@ -166,6 +174,14 @@ def classification_model():
     st.write(f"F1-score: {f1:.4f}")
 
     # Confusion Matrix
+    """
+    Display description of confusion matrix.
+    """
+    st.write("""
+    ## Confusion Matrix
+    
+    A confusion matrix is a table that summarizes the performance of a classification model. It presents the predicted classifications of a model against the actual classifications in a tabular format. The matrix provides insights into the model's ability to correctly or incorrectly classify instances, distinguishing between true positives, true negatives, false positives, and false negatives.
+    """)
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.header("Confusion Matrix")
     cm = confusion_matrix(y_test, y_pred)
@@ -176,7 +192,14 @@ def classification_model():
     st.pyplot()
 
     # Decision Tree Diagram
+    """
+    Display description of decision tree diagram.
+    """
+    st.write("""
+    ## Decision Tree Diagram
     
+    A decision tree diagram visually represents the structure of a decision tree model used for classification. Each node in the tree represents a decision based on a feature, leading to subsequent nodes or leaves that correspond to predicted class labels. Decision trees are powerful tools for understanding the logic behind classification decisions and identifying important features for prediction.
+    """)
     st.header("Decision Tree Diagram")
     fig, ax = plt.subplots(figsize=(20, 10))  # Create a Matplotlib figure and axis
     plot_tree(clf, feature_names=breastCancer.feature_names, filled=True, fontsize=8, ax=ax)  # Plot decision tree
@@ -185,6 +208,14 @@ def classification_model():
 
 
     # Feature Importance
+    """
+    Display description of feature importance.
+    """
+    st.write("""
+    ## Feature Importance
+    
+    Feature importance quantifies the contribution of each feature in a machine learning model towards making accurate predictions. For classification tasks, feature importance scores highlight which features are most influential in determining class labels. Understanding feature importance aids in feature selection, model interpretation, and identifying key factors driving classification outcomes.
+    """)
     st.header("Feature Importance")
     feature_importance = clf.feature_importances_
     sorted_idx = np.argsort(feature_importance)
