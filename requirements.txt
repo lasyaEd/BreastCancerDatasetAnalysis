@@ -1,3 +1,4 @@
+streamlit
 joblib       
 mkl-fft       
 mkl-random   
