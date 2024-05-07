@@ -1,5 +1,4 @@
 streamlit==1.33.0
-python==3.10.14
 numpy         
 pip          
 scikit-learn
