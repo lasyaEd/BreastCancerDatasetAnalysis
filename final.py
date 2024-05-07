@@ -9,6 +9,9 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+
 
 # Set page configuration and custom CSS for background color
 st.set_page_config(page_title="Breast Cancer Diagnosis Assistant", page_icon="🎗️")
@@ -41,7 +44,7 @@ df = pd.DataFrame(breastCancer.data, columns=breastCancer.feature_names)
 df['target'] = breastCancer.target
 
 # Display horizontal tabs for navigation
-tabs = ["Data Exploration", "Data Visualization", "Model Training"]
+tabs = ["Data Exploration", "Data Visualization", "Classification Model"]
 selected_tab = st.selectbox("Explore options", tabs)
 
 # Define functions for Data Exploration and Model Training
@@ -92,55 +95,67 @@ def data_visualization():
         st.write("Please select feature pairs to display the pair plot.")
 
 
-def model_training():
+def classification_model():
     X = breastCancer.data
     y = breastCancer.target
-    feature_names = breastCancer.feature_names
-    st.write("## Explore feature selection and predictive modeling.")
-    df = pd.DataFrame(X, columns=feature_names)
-    df['target'] = y
+    # Create DataFrame from features
+    df = pd.DataFrame(X, columns=breastCancer.feature_names)
 
-    # Compute correlation matrix
-    corr_matrix = df.corr()
+    # Streamlit app layout
+    st.title("Breast Cancer Diagnosis - Decision Tree Analysis")
 
-    # Define correlation threshold
-    threshold = 0.75
+    # Split data into train and test sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    # Find highly correlated features
-    corr_pairs = np.where(np.abs(corr_matrix) > threshold)
-    corr_features = [(corr_matrix.index[x], corr_matrix.columns[y]) for x, y in zip(*corr_pairs) if x != y and x < y]
+    # Initialize and train Decision Tree classifier
+    clf = DecisionTreeClassifier(random_state=42)
+    clf.fit(X_train, y_train)
 
-    # Drop highly correlated features
-    uncorrelated_features = set(feature_names) - set(sum(corr_features, ()))
-    filtered_df = df[list(uncorrelated_features) + ['target']]
-
-    # Split data into features (X) and target (y)
-    X = filtered_df.drop('target', axis=1)
-    y = filtered_df['target']
-
-    # Standardize the feature data
-    scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
-
-    # Split data into training and test sets
-    X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
-
-    # Fit a logistic regression model
-    model = LogisticRegression()
-    model.fit(X_train, y_train)
-
-    # Make predictions
-    y_pred = model.predict(X_test)
+    # Make predictions on test data
+    y_pred = clf.predict(X_test)
 
     # Evaluate model performance
     accuracy = accuracy_score(y_test, y_pred)
-    report = classification_report(y_test, y_pred)
+    precision = precision_score(y_test, y_pred)
+    recall = recall_score(y_test, y_pred)
+    f1 = f1_score(y_test, y_pred)
 
-    # Display results in Streamlit app
-    st.title("Model Evaluation with Less Correlated Features")
-    st.write(f"Accuracy: {accuracy:.2f}")
-    st.write("Classification Report:")
-    st.write(report)
+    # Display model evaluation metrics
+    st.header("Model Evaluation Metrics:")
+    st.write(f"Accuracy: {accuracy:.4f}")
+    st.write(f"Precision: {precision:.4f}")
+    st.write(f"Recall: {recall:.4f}")
+    st.write(f"F1-score: {f1:.4f}")
+
+    # Confusion Matrix
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.header("Confusion Matrix")
+    cm = confusion_matrix(y_test, y_pred)
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', cbar=False)
+    plt.xlabel('Predicted Labels')
+    plt.ylabel('True Labels')
+    st.pyplot()
+
+    # Decision Tree Diagram
+    
+    st.header("Decision Tree Diagram")
+    fig, ax = plt.subplots(figsize=(20, 10))  # Create a Matplotlib figure and axis
+    plot_tree(clf, feature_names=breastCancer.feature_names, filled=True, fontsize=8, ax=ax)  # Plot decision tree
+    st.pyplot(fig)  # Display the figure in Streamlit
+    
+
+
+    # Feature Importance
+    st.header("Feature Importance")
+    feature_importance = clf.feature_importances_
+    sorted_idx = np.argsort(feature_importance)
+    top_features = df.columns[sorted_idx][-10:]  # Select top 10 important features
+    plt.figure(figsize=(10, 6))
+    plt.barh(top_features, feature_importance[sorted_idx][-10:])
+    plt.xlabel("Feature Importance")
+    plt.title("Top 10 Important Features")
+    st.pyplot()
 
 
 
@@ -149,5 +164,5 @@ if selected_tab == "Data Exploration":
     data_exploration()
 elif selected_tab == "Data Visualization":
     data_visualization()
-elif selected_tab == "Model Training":
-    model_training()
+elif selected_tab == "Classification Model":
+    classification_model()
