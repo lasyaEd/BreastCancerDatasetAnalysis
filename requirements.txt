@@ -2,4 +2,4 @@ streamlit==1.33.0
 numpy         
 pip          
 scikit-learn
-mkl-service==2.4.0    
+mkl-service   
