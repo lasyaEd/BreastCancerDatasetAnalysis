@@ -25,22 +25,20 @@ st.set_page_config(page_title="Breast Cancer Diagnosis Assistant", page_icon="ðŸ
 # st.markdown(custom_css, unsafe_allow_html=True)
 
 # Display title and image
-# st.title("Breast Cancer Dataset Exploration and Classification")
-# st.image("data/BreastCancerRibbonEmoji.png", width=120)
-
 title_text = "Breast Cancer Dataset Exploration and Classification"
 image_path = "data/BreastCancerRibbonEmoji.png"
 
-# Display the title and image using HTML
-st.markdown(
-    f"""
-    <div style="display: flex; align-items: center;">
-        <h1 style="margin-right: 20px;">{title_text}</h1>
-        <img src="{image_path}" width="75">
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+# Create a layout with two columns
+col1, col2 = st.beta_columns([3, 1])  # Adjust the column widths as needed
+
+# Add the title to the first column
+with col1:
+    st.title(title_text)
+
+# Add the image to the second column
+with col2:
+    st.image(image_path, width=120)
+
 # Display app description
 st.markdown("""
 This app provides interactive tools for analyzing breast cancer data. Explore the characteristics of breast tumors, predict diagnosis outcomes, and gain insights from machine learning models. Understand the features that contribute to tumor classification and empower informed decision-making.
