@@ -15,10 +15,10 @@ st.set_page_config(page_title="Breast Cancer Dataset Analysis", page_icon="ðŸŽ—ï
 custom_css = f"""
     <style>
         body {{
-            background-color: #FADADD; /* Breast cancer pink color code */
+            background-color: #FFD1DC; /* Breast cancer pink color code */
         }}
         .stApp {{
-            background-color: #FADADD; /* Apply to entire app container */
+            background-color: #FFD1DC; /* Apply to entire app container */
         }}
     </style>
 """
