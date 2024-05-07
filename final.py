@@ -98,6 +98,19 @@ def data_visualization():
 
     # Generate pairplot for selected features with customized settings
     st.write("### Pairplot with KDE Diagonals and Target Variable")
+    st.write("""
+    ## Pair Plot Analysis with KDE Diagonals
+    
+    Pair plots with KDE diagonals provide an insightful visualization of feature interactions and distributions within the breast cancer dataset. Each scatterplot in the pair plot matrix displays the relationship between two different features, allowing for the identification of potential patterns and correlations.
+    
+    **Interactive Feature Selection**
+    
+    This pair plot analysis is interactive, allowing you to choose specific feature pairs to visualize and analyze. By selecting feature pairs dynamically, you can gain deeper insights into how different features interact and influence tumor classification.
+    
+    **Target Variable (Outcome)**
+    
+    The pair plots include the target variable (tumor classification) as a hue parameter. This hue parameter colors the scatterplot points based on the target variable, enabling visual differentiation between benign and malignant tumors. Through this visualization, you can observe how feature combinations relate to tumor classification outcomes.
+    """)
     feature_names = breastCancer.feature_names
     df['target'] = breastCancer.target
     # Select pairs of features for pair plot using Streamlit multiselect widget
