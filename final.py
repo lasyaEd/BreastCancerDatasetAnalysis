@@ -38,16 +38,16 @@ Welcome to the Breast Cancer Dataset Analysis and Classification App! This inter
 st.write("## How to Use")
 
 # Data Exploration
-st.write("## Click on data exploration tab to:")
+st.write("#### Click on data exploration tab to:")
 st.write("- Investigate the dataset's characteristics, including sample size, feature dimensions, and available classes.")
 
-st.write("## Click on data visualization tab to:")
+st.write("#### Click on data visualization tab to:")
 st.write("- View correlation patterns using the heatmap to identify significant relationships between features.")
 st.write("- Customize pair plots to examine feature interactions and distributions.")
 st.write("- Choose feature pairs interactively to visualize and analyze potential patterns.")
 
 # Decision Tree Visualization
-st.write("## Click on Classification Model tab to:")
+st.write("#### Click on Classification Model tab to:")
 st.write("- Explore decision tree diagrams to understand the underlying structure of classification models.")
 st.write("- Gain insights into feature importance and decision-making processes.")
 
