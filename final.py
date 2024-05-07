@@ -159,9 +159,7 @@ def classification_model():
     f1 = f1_score(y_test, y_pred)
 
     # Display model evaluation metrics
-    """
-    Display description of model evaluation metrics.
-    """
+   
     st.write("""
     ## Model Evaluation Metrics
     
@@ -174,9 +172,7 @@ def classification_model():
     st.write(f"F1-score: {f1:.4f}")
 
     # Confusion Matrix
-    """
-    Display description of confusion matrix.
-    """
+    
     st.write("""
     ## Confusion Matrix
     
@@ -191,9 +187,7 @@ def classification_model():
     st.pyplot()
 
     # Decision Tree Diagram
-    """
-    Display description of decision tree diagram.
-    """
+    
     st.write("""
     ## Decision Tree Diagram
     
@@ -207,9 +201,7 @@ def classification_model():
 
 
     # Feature Importance
-    """
-    Display description of feature importance.
-    """
+    
     st.write("""
     ## Feature Importance
     
