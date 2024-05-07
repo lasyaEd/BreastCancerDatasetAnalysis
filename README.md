@@ -1,6 +1,4 @@
-# Breast Cancer Dataset Analysis and Classification App
-
-![Breast Cancer Logo](data/BreastCancerRibbonEmoji.png)
+# 🎗️ Breast Cancer Dataset Analysis and Classification App
 
 ## Streamlit App Link
 🔗 [Link to Streamlit App](https://your-streamlit-app-link-here)
