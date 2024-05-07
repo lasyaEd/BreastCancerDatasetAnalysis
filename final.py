@@ -25,22 +25,8 @@ st.set_page_config(page_title="Breast Cancer Diagnosis Assistant", page_icon="ðŸ
 # st.markdown(custom_css, unsafe_allow_html=True)
 
 # Display title and image
-# st.title("Breast Cancer Dataset Exploration and Classification")
+st.title("Breast Cancer Dataset Exploration and Classification")
 # st.image("data/BreastCancerRibbonEmoji.png", width=120)
-title_text = "Breast Cancer Dataset Exploration and Classification"
-image_path = "data/BreastCancerRibbonEmoji.png"
-
-# Create a layout with two columns
-col1, col2 = st.beta_columns([3, 1])  # Adjust the column widths as needed
-
-# Add the title to the first column
-with col1:
-    st.title(title_text)
-
-# Add the image to the second column
-with col2:
-    st.image(image_path, width=120)
-
 
 # Display app description
 st.markdown("""
