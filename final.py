@@ -61,12 +61,31 @@ tabs = ["Data Exploration", "Data Visualization", "Classification Model"]
 selected_tab = st.selectbox("Explore options", tabs)
 
 # Define functions for Data Exploration and Model Training
-def data_exploration():
-    st.write("## Data Exploration")
+def data_exploration(df, breastCancer):
+    """
+    Explore the characteristics of the breast cancer dataset.
+
+    Parameters:
+    - df (pandas.DataFrame): The DataFrame containing the dataset.
+    - breastCancer (sklearn.utils.Bunch): The breast cancer dataset object.
+
+    """
+
+    st.header("Data Exploration")
+    
+    # Description of data exploration
+    st.markdown("""
+    Explore the characteristics of the breast cancer dataset, including sample statistics, feature dimensions,
+    and available classes. This section provides an overview of the dataset's key attributes.
+    """)
+
+    # Display sample statistics
     st.write("Number of samples:", df.shape[0])
     st.write("Number of features:", df.shape[1])
     st.write("Classes:", breastCancer.target_names)
-    st.write("Sample Data:")
+
+    # Display sample data
+    st.subheader("Sample Data:")
     st.write(df.head(7))
 
 def data_visualization():
@@ -174,7 +193,7 @@ def classification_model():
 
 # Render content based on selected tab
 if selected_tab == "Data Exploration":
-    data_exploration()
+    data_exploration(df, breastCancer)
 elif selected_tab == "Data Visualization":
     data_visualization()
 elif selected_tab == "Classification Model":
