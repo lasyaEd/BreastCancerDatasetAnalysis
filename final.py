@@ -25,6 +25,8 @@ st.set_page_config(page_title="Breast Cancer Diagnosis Assistant", page_icon="ðŸ
 # st.markdown(custom_css, unsafe_allow_html=True)
 
 # Display title and image
+# st.title("Breast Cancer Dataset Exploration and Classification")
+# st.image("data/BreastCancerRibbonEmoji.png", width=120)
 title_text = "Breast Cancer Dataset Exploration and Classification"
 image_path = "data/BreastCancerRibbonEmoji.png"
 
@@ -38,6 +40,7 @@ with col1:
 # Add the image to the second column
 with col2:
     st.image(image_path, width=120)
+
 
 # Display app description
 st.markdown("""
