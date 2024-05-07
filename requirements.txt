@@ -1,10 +1,8 @@
-joblib
-mkl-random
-mkl-service
-numpy
-pip
-scikit-learn
-scipy
-setuptools
-threadpoolctl
-wheel
+joblib @ file:///C:/b/abs_4b02c83r3b/croot/joblib_1713976789617/work
+mkl-fft @ file:///C:/b/abs_19i1y8ykas/croot/mkl_fft_1695058226480/work
+mkl-random @ file:///C:/b/abs_edwkj1_o69/croot/mkl_random_1695059866750/work
+mkl-service==2.4.0
+numpy @ file:///C:/b/abs_c1ywpu18ar/croot/numpy_and_numpy_base_1708638681471/work/dist/numpy-1.26.4-cp310-cp310-win_amd64.whl#sha256=ebb5aa2b36d8afa5ec3231c19e5a1fc75b6d85e7db483f0fb9e77dad58469977
+scikit-learn @ file:///C:/b/abs_d6_krvz8aa/croot/scikit-learn_1714164798159/work
+scipy @ file:///C:/b/abs_2ea4kcjtpg/croot/scipy_1714080455387/work/dist/scipy-1.13.0-cp310-cp310-win_amd64.whl#sha256=064c6ae68c4daf977b4bb0cbbec2578ad43bd521f51fbfaee5915962aaa84877
+threadpoolctl @ file:///Users/ktietz/demo/mc3/conda-bld/threadpoolctl_1629802263681/work
