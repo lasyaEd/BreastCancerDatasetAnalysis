@@ -75,7 +75,9 @@ def data_exploration():
     st.write("Number of samples:", df.shape[0])
     st.write("Number of features:", df.shape[1])
     st.write("Classes:")
-    st.write(", ".join(breastCancer.target_names))
+    classes_str = st.write(", ".join(breastCancer.target_names))
+    st.markdown(f'<p style="font-size:16px; font-family:sans-serif;">{classes_str}</p>', unsafe_allow_html=True)
+
 
     # Display sample data
     st.subheader("Sample Data:")
