@@ -1,13 +1,5 @@
 streamlit
 python
-joblib       
-mkl-fft       
-mkl-random   
-mkl-service   
 numpy         
 pip          
-scikit-learn  
-scipy         
-setuptools    
-threadpoolctl 
-wheel         
+scikit-learn     
