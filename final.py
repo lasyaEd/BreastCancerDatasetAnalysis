@@ -97,7 +97,6 @@ def data_visualization():
     st.pyplot(heatmap_fig)  # Display the heatmap figure
 
     # Generate pairplot for selected features with customized settings
-    st.write("### Pairplot with KDE Diagonals and Target Variable")
     st.write("""
     ## Pair Plot Analysis with KDE Diagonals
     
