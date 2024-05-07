@@ -30,7 +30,8 @@ st.title("Breast Cancer Dataset Exploration and Classification")
 
 # Display app description
 st.markdown("""
-Welcome to the Breast Cancer Dataset Analysis and Classification App! This interactive tool provides insights into the characteristics of breast tumors using advanced data visualization and machine learning techniques. Leveraging the renowned Breast Cancer dataset from Scikit-learn, this app empowers you to explore, visualize, and predict tumor classifications with ease./n
+Welcome to the Breast Cancer Dataset Analysis and Classification App! This interactive tool provides insights into the characteristics of breast tumors using advanced data visualization and machine learning techniques. Leveraging the renowned Breast Cancer dataset from Scikit-learn, this app empowers you to explore, visualize, and predict tumor classifications with ease.
+<!-- Add a horizontal line -->
 <small><em>Please note: This app is for educational purposes only. Do not use this app for self-diagnosis or medical decision-making.</em></small>
 """, unsafe_allow_html=True)
 
