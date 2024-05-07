@@ -30,10 +30,26 @@ st.title("Breast Cancer Dataset Exploration and Classification")
 
 # Display app description
 st.markdown("""
-This app provides interactive tools for analyzing breast cancer data. Explore the characteristics of breast tumors, predict diagnosis outcomes, and gain insights from machine learning models. Understand the features that contribute to tumor classification and empower informed decision-making.
-
+Welcome to the Breast Cancer Dataset Analysis and Classification App! This interactive tool provides insights into the characteristics of breast tumors using advanced data visualization and machine learning techniques. Leveraging the renowned Breast Cancer dataset from Scikit-learn, this app empowers you to explore, visualize, and predict tumor classifications with ease.
 <small><em>Please note: This app is for educational purposes only. Do not use this app for self-diagnosis or medical decision-making.</em></small>
 """, unsafe_allow_html=True)
+
+st.write("## How to Use")
+
+# Data Exploration
+st.write("### Data Exploration:")
+st.write("- Investigate the dataset's characteristics, including sample size, feature dimensions, and available classes.")
+st.write("- View correlation patterns using the heatmap to identify significant relationships between features.")
+
+# Pair Plot Analysis
+st.write("### Pair Plot Analysis:")
+st.write("- Customize pair plots to examine feature interactions and distributions.")
+st.write("- Choose feature pairs interactively to visualize and analyze potential patterns.")
+
+# Decision Tree Visualization
+st.write("### Decision Tree Visualization:")
+st.write("- Explore decision tree diagrams to understand the underlying structure of classification models.")
+st.write("- Gain insights into feature importance and decision-making processes.")
 
 # Load breast cancer dataset
 breastCancer = datasets.load_breast_cancer()
