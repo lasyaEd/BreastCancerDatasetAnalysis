@@ -15,21 +15,21 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 
 # Set page configuration and custom CSS for background color
 st.set_page_config(page_title="Breast Cancer Diagnosis Assistant", page_icon="🎗️")
-custom_css = f"""
-    <style>
-        body {{
-            background-color: #FFC0CB; /* Breast cancer pink color code */
-        }}
-        .stApp {{
-            background-color: #FFC0CB; /* Apply to entire app container */
-        }}
-    </style>
-"""
-st.markdown(custom_css, unsafe_allow_html=True)
+# custom_css = f"""
+#     <style>
+#         body {{
+#             background-color: #FFC0CB; /* Breast cancer pink color code */
+#         }}
+#         .stApp {{
+#             background-color: #FFC0CB; /* Apply to entire app container */
+#         }}
+#     </style>
+# """
+# st.markdown(custom_css, unsafe_allow_html=True)
 
 # Display title and image
 st.title("Breast Cancer Dataset Exploration and Classification")
-st.image("data/pink_ribbon.png", width=120)
+st.image("data/BreastCancerRibbonEmoji.png", width=120)
 
 # Display app description
 st.markdown("""
@@ -132,7 +132,7 @@ def classification_model():
     st.header("Confusion Matrix")
     cm = confusion_matrix(y_test, y_pred)
     plt.figure(figsize=(8, 6))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', cbar=False)
+    sns.heatmap(cm, annot=True, fmt='d', cmap='cividis', cbar=False)
     plt.xlabel('Predicted Labels')
     plt.ylabel('True Labels')
     st.pyplot()
