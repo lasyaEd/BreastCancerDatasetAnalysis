@@ -12,17 +12,17 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 
 # Set page configuration and custom CSS for background color
 st.set_page_config(page_title="Breast Cancer Diagnosis Assistant", page_icon="🎗️")
-# custom_css = f"""
-#     <style>
-#         body {{
-#             background-color: #FFC0CB; /* Breast cancer pink color code */
-#         }}
-#         .stApp {{
-#             background-color: #FFC0CB; /* Apply to entire app container */
-#         }}
-#     </style>
-# """
-# st.markdown(custom_css, unsafe_allow_html=True)
+custom_css = f"""
+    <style>
+        body {{
+            background-color: #FFC0CB; /* Breast cancer pink color code */
+        }}
+        .stApp {{
+            background-color: #FFC0CB; /* Apply to entire app container */
+        }}
+    </style>
+"""
+st.markdown(custom_css, unsafe_allow_html=True)
 
 # Display title and image
 st.title("Breast Cancer Dataset Exploration and Classification")
